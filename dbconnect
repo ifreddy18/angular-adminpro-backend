@@ -1,0 +1,13 @@
+Alternativa original
+
+mongodb+srv://mean_user:1gNMSdkgMI1aAQ3n@cluster0.zutmo.mongodb.net/hospitaldb
+
+
+
+// mongodb://mean_user:1gNMSdkgMI1aAQ3n@main-shard-00-00-03xkr.mongodb.net:27017,main-shard-00-01-03xkr.mongodb.net:27017,main-shard-00-02-03xkr.mongodb.net:27017/main?ssl=true&replicaSet=Main-shard-0&authSource=admin&retryWrites=true
+
+
+Alternativa actualmente funcionando
+
+mongodb://mean_user:1gNMSdkgMI1aAQ3n@cluster0-shard-00-00.zutmo.mongodb.net:27017,cluster0-shard-00-01.zutmo.mongodb.net:27017,cluster0-shard-00-02.zutmo.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-o5yi6t-shard-0&authSource=admin&retryWrites=true&w=majority
+    
