@@ -5,13 +5,32 @@ const { generarJWT } = require("../helpers/jwt");
 const Usuario = require("../models/usuario");
 
 const getUsuarios = async (req, res) => {
-    const usuarios = await Usuario.find({}, "email name");
+
+    const desde = Number(req.query.desde) || 0;
+
+    // const usuarios = await Usuario.find({}, "email name")
+    //                             .skip( desde )
+    //                             .limit( 3 );
+
+    // const total = await Usuario.count();
+
+    // Para no usar dos await y tener que esperar a que una se termine
+    // de ejecutar para tener que ejecutar la otra, se usara:
+
+    const [ usuarios, total ] = await Promise.all([
+        Usuario
+            .find({}, "email name img")
+            .skip( desde )
+            .limit( 3 ),
+        
+        Usuario.countDocuments()
+    ]);
 
     res.json({
         ok: true,
         msg: "get Usuarios",
         usuarios,
-        uid: req.uid,
+        total
     });
 };
 
