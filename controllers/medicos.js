@@ -40,20 +40,78 @@ const crearMedicos = async (req, res = response) => {
     }
 };
 
-const actualizarMedicos = (req, res = response) => {
+const actualizarMedicos = async (req, res = response) => {
 
-    res.json({
-        ok: true,
-        msg: 'actualizarMedicos'
-    });
+    const id = req.params.uid;
+    const uid = req.uid;
+
+    try {
+
+        const medico = await Medico.findById( id );
+
+        if (!medico) {
+            res.json({
+                ok: true,
+                msg: 'El medico no fue encotrado por ID',
+                id
+            });
+        }
+
+        const cambiosMedico = {
+            ...req.body,
+            usuario: uid
+        };
+
+        const medicoActualizado = await Medico.findByIdAndUpdate( id, cambiosMedico, {new:true});
+
+
+        res.json({
+            ok: true,
+            msg: 'actualizarMedicos',
+            medico: medicoActualizado
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+    
 };
 
-const borrarMedicos = (req, res = response) => {
+const borrarMedicos = async (req, res = response) => {
 
-    res.json({
-        ok: true,
-        msg: 'borrarMedicos'
-    });
+    const id = req.params.uid;
+
+    try {
+
+        const medico = await Medico.findById( id );
+
+        if (!medico) {
+            res.json({
+                ok: true,
+                msg: 'El medico no fue encotrado por ID',
+                id
+            });
+        }
+
+        await Medico.findByIdAndDelete( id );
+
+        res.json({
+            ok: true,
+            msg: 'Medico eliminado',
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+
 };
 
 
